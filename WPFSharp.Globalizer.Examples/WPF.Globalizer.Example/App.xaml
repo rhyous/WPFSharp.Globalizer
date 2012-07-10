@@ -1,0 +1,11 @@
+﻿<Global:GlobalizedApplication 
+    x:Class="WPFSharp.Globalizer.Example.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Global="clr-namespace:WPFSharp.Globalizer;assembly=WPFSharp.Globalizer"
+    StartupUri="MainWindow.xaml"
+    >
+    <Global:GlobalizedApplication.Resources>
+
+    </Global:GlobalizedApplication.Resources>
+</Global:GlobalizedApplication>

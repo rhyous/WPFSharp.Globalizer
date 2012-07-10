@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFSharp.Globalizer", "WPFSharp.Globalizer\WPFSharp.Globalizer.csproj", "{715461E8-4E54-4993-80A8-8E72892135E0}"
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WPFSharp.Globalizer.Install.64", "WPFSharp.Globalizer.Install\WPFSharp.Globalizer.Install.64.wixproj", "{F5691945-F683-47BB-A93A-7443A796419B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{715461E8-4E54-4993-80A8-8E72892135E0} = {715461E8-4E54-4993-80A8-8E72892135E0}
+	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "WPFSharp.Globalizer.Install.32", "WPFSharp.Globalizer.Install.32\WPFSharp.Globalizer.Install.32.wixproj", "{217F9CF8-9832-4995-B464-9725335339DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{715461E8-4E54-4993-80A8-8E72892135E0} = {715461E8-4E54-4993-80A8-8E72892135E0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{715461E8-4E54-4993-80A8-8E72892135E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{715461E8-4E54-4993-80A8-8E72892135E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{715461E8-4E54-4993-80A8-8E72892135E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{715461E8-4E54-4993-80A8-8E72892135E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5691945-F683-47BB-A93A-7443A796419B}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{F5691945-F683-47BB-A93A-7443A796419B}.Debug|Any CPU.Build.0 = Debug|x64
+		{F5691945-F683-47BB-A93A-7443A796419B}.Release|Any CPU.ActiveCfg = Release|x64
+		{F5691945-F683-47BB-A93A-7443A796419B}.Release|Any CPU.Build.0 = Release|x64
+		{217F9CF8-9832-4995-B464-9725335339DF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{217F9CF8-9832-4995-B464-9725335339DF}.Debug|Any CPU.Build.0 = Debug|x86
+		{217F9CF8-9832-4995-B464-9725335339DF}.Release|Any CPU.ActiveCfg = Release|x86
+		{217F9CF8-9832-4995-B464-9725335339DF}.Release|Any CPU.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
