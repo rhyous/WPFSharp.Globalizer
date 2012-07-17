@@ -1,4 +1,88 @@
-﻿#region License
+﻿// See license at bottom of file
+using System;
+using System.IO;
+using System.Threading;
+using System.Windows;
+
+namespace WPFSharp.Globalizer
+{
+    public abstract class GlobalizedApplication : Application
+    {
+        public static GlobalizedApplication Instance;
+
+        public GlobalizationManager GlobalizationManager;
+
+        public StyleManager StyleManager;
+
+        public GlobalizedApplication()
+        {
+            // Make App a singleton
+            Instance = this;
+            Init();
+        }
+
+        #region Properties
+        public virtual String Directory
+        {
+            get { return _Directory ?? (_Directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)); }
+        } private String _Directory;
+
+
+        public virtual EnhancedResourceDictionary FallbackResourceDictionary { get; private set; }
+        #endregion
+
+        #region Methods
+        public virtual void Init()
+        {
+            GlobalizationManager = new GlobalizationManager(Resources.MergedDictionaries);
+            StyleManager = new StyleManager(Resources.MergedDictionaries);
+
+            // Load the default style
+            CreateAvailableStyles();
+            StyleManager.SwitchStyle(StyleManager.DefaultStyle);
+
+            // Get current 5 character language and load the appropriate Globalization file
+            CreateAvailableLanguages();
+            GlobalizationManager.SwitchLanguage(Thread.CurrentThread.CurrentCulture.Name, true);
+
+            // Create the FallbackResourceDictionary
+            FallbackResourceDictionary = new FallbackResourceDictionary() { Name = "Fallback" };
+            Resources.MergedDictionaries.Add(FallbackResourceDictionary);
+        }
+
+        public virtual object GetResource(string inKey)
+        {
+            if (string.IsNullOrWhiteSpace(inKey))
+                throw new ArgumentNullException(inKey, "parameter cannot be null.");
+            return (Instance.Resources.Contains(inKey))
+                ? Instance.Resources[inKey]
+                : null;
+        }
+
+        /// <summary>
+        /// // Create and populate the SupportedLanguages singleton
+        /// </summary>
+        protected virtual void CreateAvailableLanguages()
+        {
+            AvailableLanguages.CreateInstance();
+            AvailableLanguages.Instance.AddListFromSubDirectories(GlobalizationManager.DefaultPath);
+        }
+
+
+        /// <summary>
+        /// // Create and populate the SupportedLanguages singleton
+        /// </summary>
+        protected virtual void CreateAvailableStyles()
+        {
+            AvailableStyles.CreateInstance();
+            AvailableStyles.Instance.AddListFromFiles(StyleManager.DefaultPath);
+        }
+
+        #endregion
+    }
+}
+
+#region License
 /*
 WPF Sharp Globalizer - A project deisgned to make localization and styling
                        easier by decoupling both process from the build.
@@ -14,13 +98,9 @@ modification, are permitted provided that the following conditions are met:
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
-3. Use of the source code or binaries for a competing project, whether open
-   source or commercial, is prohibited unless permission is specifically
-   granted under a separate license by Rhyous.com.
-4. Source code enhancements or additions are the property of the author until
-   the source code is contributed to this project. By contributing the source
-   code to this project, the author immediately grants all rights to
-   the contributed source code to Rhyous.com.
+3. Use of the source code or binaries that in any way competes with this
+   project, whether open source or commercial or other, is prohibited unless 
+   permission is granted under a separate license by Rhyous.com.
  
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -34,64 +114,3 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
-
-using System;
-using System.IO;
-using System.Threading;
-using System.Windows;
-using WPFSharp.Globalizer.Base;
-
-namespace WPFSharp.Globalizer
-{
-    public class GlobalizedApplication : Application
-    {
-        public static GlobalizedApplication Instance;
-
-        public String Directory;
-        public ResourceDictionaryLoader DictionaryLoader;
-        public GlobalizationManager GlobalizationManager;
-        public StyleManager StyleManager;
-
-        public GlobalizedApplication()
-        {
-            // Make App a singleton
-            Instance = this;
-            DictionaryLoader = new ResourceDictionaryLoader(Resources.MergedDictionaries);
-            GlobalizationManager = new GlobalizationManager(DictionaryLoader);
-            StyleManager = new StyleManager(DictionaryLoader);
-
-            // Create and populate the SupportedLanguages singleton
-            SupportedLanguages.CreateInstance();
-            Directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            GlobalizationManager.GlobalizationPath = Path.Combine(Directory, "Globalization");
-            SupportedLanguages.Instance.AddListFromSubDirectories(GlobalizationManager.GlobalizationPath);
-
-            // Get current 5 character language and load the appropriate Globalization file
-            GlobalizationManager.SwitchLanguage(Thread.CurrentThread.CurrentCulture.Name, true);
-        }
-
-        public EnhancedResourceDictionary FallBackResourceDictionary
-        {
-            get
-            {
-                if (_FallBackResourceDictionary == null)
-                {
-                    _FallBackResourceDictionary = new EnhancedResourceDictionary() { Name = "Fallback", Type = ResourceDictionaryType.Fallback };
-                    
-                }
-                return _FallBackResourceDictionary;
-            }
-        }
-        private EnhancedResourceDictionary _FallBackResourceDictionary;
-
-
-        public object GetResource(string inKey)
-        {
-            if (string.IsNullOrWhiteSpace(inKey))
-                throw new ArgumentNullException(inKey, "parameter cannot be null.");
-            return (Instance.Resources.Contains(inKey))
-                ? Instance.Resources[inKey]
-                : null;
-        }
-    }
-}

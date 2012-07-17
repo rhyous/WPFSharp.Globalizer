@@ -1,4 +1,148 @@
-﻿#region License
+﻿// See license at bottom of file
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.IO;
+using System.Threading;
+using System.Windows;
+using System.Windows.Markup;
+
+namespace WPFSharp.Globalizer
+{
+    public sealed class GlobalizationManager : ResourceDictionaryManagerBase
+    {
+        #region Members
+
+        private const string FallBackLanguage = "en-US";
+
+        #endregion
+
+        #region Contructor
+        public GlobalizationManager(Collection<ResourceDictionary> inMergedDictionaries)
+            : base(inMergedDictionaries)
+        {
+            SubDirectory = "Globalization";
+        }
+
+        #endregion
+
+        #region Functions
+
+        /// <summary>
+        /// Dynamically load a Localization ResourceDictionary from a file
+        /// </summary>
+        public void SwitchLanguage(string inFiveCharLang, bool inForceSwitch = false)
+        {
+            if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang) && !inForceSwitch)
+                return;
+
+            // Set the new language
+            var ci = new CultureInfo(inFiveCharLang);
+            Thread.CurrentThread.CurrentCulture = ci;
+            Thread.CurrentThread.CurrentUICulture = ci;
+
+            string[] xamlFiles = Directory.GetFiles(Path.Combine(DefaultPath, inFiveCharLang), "*.xaml");
+
+            // If there are no files, do nothing
+            if (xamlFiles.Length == 0)
+                return;
+
+            FileNames = new List<string>(xamlFiles);
+
+            // Remove previous ResourceDictionaries
+            RemoveGlobalizationResourceDictionaries();
+
+            // Add new Resource Dictionaries
+            LoadDictionariesFromFiles(FileNames);
+        }
+
+        private void RemoveGlobalizationResourceDictionaries()
+        {
+            var dictionariesToRemove = new List<ResourceDictionary>();
+            foreach (ResourceDictionary erd in GlobalizedApplication.Instance.Resources.MergedDictionaries)
+            {
+                if (erd is GlobalizationResourceDictionary)
+                {
+                    dictionariesToRemove.Add(erd);
+                }
+            }
+            foreach (EnhancedResourceDictionary erd in dictionariesToRemove)
+            {
+                GlobalizedApplication.Instance.Resources.MergedDictionaries.Remove(erd);
+                // Also remove any associated LinkedStyles
+                if ((erd as GlobalizationResourceDictionary).LinkedStyle != null)
+                    Remove((erd as GlobalizationResourceDictionary).LinkedStyle);
+            }
+        }
+
+        public override EnhancedResourceDictionary LoadFromFile(String inFile)
+        {
+            return LoadFromFile(inFile, true);
+        }
+
+        public EnhancedResourceDictionary LoadFromFile(String inFile, bool inRequireGlobalizationType = true)
+        {
+            string file = inFile;
+            // Determine if the path is absolute or relative
+            if (!Path.IsPathRooted(inFile))
+            {
+                file = Path.Combine(DefaultPath, CultureInfo.CurrentCulture.Name, inFile);
+            }
+
+            if (!File.Exists(file))
+                return null;
+
+            using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                // Read in an EnhancedResourceDictionary File or preferably an GlobalizationResourceDictionary file
+                var erd = XamlReader.Load(fs) as EnhancedResourceDictionary;
+
+                if (erd != null)
+                {
+                    if (inRequireGlobalizationType)
+                    {
+                        if (erd is GlobalizationResourceDictionary)
+                            return erd;
+
+                        return null;
+                    }
+                }
+                return erd;
+            }
+        }
+
+        public override void LoadDictionariesFromFiles(List<string> inList)
+        {
+            foreach (var filePath in inList)
+            {
+                // Only Globalization resource dictionaries should be added
+                // Ignore other types
+                var globalizationResourceDictionary = LoadFromFile(filePath) as GlobalizationResourceDictionary;
+                if (globalizationResourceDictionary == null)
+                    continue;
+
+                MergedDictionaries.Add(globalizationResourceDictionary);
+
+                if (globalizationResourceDictionary.LinkedStyle != null)
+                {
+                    string styleFile = globalizationResourceDictionary.LinkedStyle + ".xaml";
+                    if (globalizationResourceDictionary.Source != null)
+                    {
+                        string path = Path.Combine(Path.GetDirectoryName(globalizationResourceDictionary.Source), styleFile);
+                        MergedDictionaries.Add(LoadFromFile(path, false));
+                        return;
+                    }
+                    MergedDictionaries.Add(LoadFromFile(styleFile, false));
+                }
+            }
+        }
+
+        #endregion
+    }
+}
+
+#region License
 /*
 WPF Sharp Globalizer - A project deisgned to make localization and styling
                        easier by decoupling both process from the build.
@@ -14,13 +158,9 @@ modification, are permitted provided that the following conditions are met:
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
-3. Use of the source code or binaries for a competing project, whether open
-   source or commercial, is prohibited unless permission is specifically
-   granted under a separate license by Rhyous.com.
-4. Source code enhancements or additions are the property of the author until
-   the source code is contributed to this project. By contributing the source
-   code to this project, the author immediately grants all rights to
-   the contributed source code to Rhyous.com.
+3. Use of the source code or binaries that in any way competes with this
+   project, whether open source or commercial or other, is prohibited unless 
+   permission is granted under a separate license by Rhyous.com.
  
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -35,91 +175,3 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Threading;
-using System.Windows;
-using WPFSharp.Globalizer.Base;
-
-namespace WPFSharp.Globalizer
-{
-    public class GlobalizationManager : ResourceDictionaryManagerBase
-    {
-        private const string FallBackLanguage = "en-US";
-
-        #region Constructor
-
-        public GlobalizationManager(ResourceDictionaryLoader inDictionaryLoader)
-        {
-            DictionaryManager = inDictionaryLoader;
-        }
-
-        #endregion
-
-        #region Properties
-
-        public String GlobalizationPath { get; set; }
-
-        #endregion
-
-        #region Functions
-
-        /// <summary>
-        /// Adds a file path to the list of localization ResourceDictionary files
-        /// </summary>
-        /// <param name="inFile"></param>
-        public override void Add(string inFile)
-        {
-            base.Add(inFile);
-        }
-
-        /// <summary>
-        /// Dynamically load a Localization ResourceDictionary from a file
-        /// </summary>
-        public void SwitchLanguage(string inFiveCharLang, bool inForceSwitch = false)
-        {
-            if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang) && !inForceSwitch)
-                return;
-
-            // Set the new language
-            var ci = new CultureInfo(inFiveCharLang);
-            Thread.CurrentThread.CurrentCulture = ci;
-            Thread.CurrentThread.CurrentUICulture = ci;
-
-            RemoveGlobalizationResourceDictionaries();
-
-            string[] xamlFiles = Directory.GetFiles(Path.Combine(GlobalizationPath, inFiveCharLang), "*.xaml");
-            FileNames = new List<string>(xamlFiles);
-            DictionaryManager.LoadDictionariesFromFiles(FileNames);
-        }
-
-        private void RemoveGlobalizationResourceDictionaries()
-        {
-            var dictionariesToRemove = new List<ResourceDictionary>();
-            foreach (EnhancedResourceDictionary erd in GlobalizedApplication.Instance.Resources.MergedDictionaries)
-            {
-                if (erd.Type == ResourceDictionaryType.Globalization)
-                    dictionariesToRemove.Add(erd);
-            }
-            foreach (EnhancedResourceDictionary erd in dictionariesToRemove)
-            {
-                GlobalizedApplication.Instance.Resources.MergedDictionaries.Remove(erd);
-            }
-        }
-
-        #endregion
-
-        #region Internal class
-        class InvalidLocalizationFileException : ApplicationException
-        {
-            public InvalidLocalizationFileException(String inLang, String inFallBackLang, String inFileName)
-                : base(String.Format("Localization file missing for both (0) and fall back language (1): (3)", inLang, inFallBackLang, inFileName)
-                )
-            {
-            }
-        }
-        #endregion
-    }
-}

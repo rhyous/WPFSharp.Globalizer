@@ -5,7 +5,5 @@
     xmlns:Global="clr-namespace:WPFSharp.Globalizer;assembly=WPFSharp.Globalizer"
     StartupUri="MainWindow.xaml"
     >
-    <Global:GlobalizedApplication.Resources>
-
-    </Global:GlobalizedApplication.Resources>
+    
 </Global:GlobalizedApplication>

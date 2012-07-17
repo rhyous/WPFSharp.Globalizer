@@ -37,19 +37,24 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
           xmlns:Globalizer="clr-namespace:WPFSharp.Globalizer"
-          xmlns:Converters="clr-namespace:WPFSharp.Globalizer.Converters" Name="MenuItemLanguages" 
+          xmlns:Converters="clr-namespace:WPFSharp.Globalizer.Converters" 
+          Name="MenuItemLanguages" 
           Header="{Globalizer:GlobalizedResource Menu_Language, FallbackValue=Language}" 
-          ItemsSource="{x:Static Globalizer:SupportedLanguages.Instance}" >
+          ItemsSource="{x:Static Globalizer:AvailableLanguages.Instance}" >
     <MenuItem.Resources>
         <Converters:LanguageNameConverter x:Key="LanguageConverter" />
         <Converters:LanguageToBoolConverter x:Key="LanguageToBoolConverter" />
+        <RadioButton x:Key="RadioButtonResource" x:Shared="false" HorizontalAlignment="Center" GroupName="Language" IsHitTestVisible="False"
+                     IsChecked="{Binding Converter={StaticResource LanguageToBoolConverter}, Mode=OneWay}" >
+        </RadioButton>
     </MenuItem.Resources>
-    <MenuItem.ItemTemplate>
-        <DataTemplate>
-            <RadioButton Content="{Binding Converter={StaticResource LanguageConverter}}" GroupName="Language"
-                         Command="{Binding Path=SelectLanguageCommand, ElementName=MenuItemLanguages}" CommandParameter="{Binding}"
-                         IsChecked="{Binding Converter={StaticResource LanguageToBoolConverter}, Mode=OneWay}"
-                         />
-        </DataTemplate>
-    </MenuItem.ItemTemplate>
+    <MenuItem.ItemContainerStyle>
+        <Style TargetType="MenuItem">
+            <Setter Property="Icon" Value="{StaticResource RadioButtonResource}"/>
+            <Setter Property="Header" Value="{Binding Converter={StaticResource LanguageConverter}}"/>
+            <Setter Property="Command" Value="{Binding Path=SelectLanguageCommand, ElementName=MenuItemLanguages}"/>
+            <Setter Property="CommandParameter" Value="{Binding}"/>
+            <EventSetter Event="Click" Handler="MenuItemWithRadioButtons_Click" />
+        </Style>
+    </MenuItem.ItemContainerStyle>
 </MenuItem>

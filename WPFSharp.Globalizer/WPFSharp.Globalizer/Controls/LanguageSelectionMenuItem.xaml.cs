@@ -35,6 +35,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
 
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace WPFSharp.Globalizer.Controls
@@ -57,6 +58,19 @@ namespace WPFSharp.Globalizer.Controls
             string lang = inLanguage as string;
             if (!string.IsNullOrWhiteSpace(lang))
                 GlobalizedApplication.Instance.GlobalizationManager.SwitchLanguage(lang);
+        }
+
+        private void MenuItemWithRadioButtons_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+            if (mi != null)
+            {
+                RadioButton rb = mi.Icon as RadioButton;
+                if (rb != null)
+                {
+                    rb.IsChecked = true;
+                }
+            }
         }
     }
 }

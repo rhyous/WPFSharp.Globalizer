@@ -5,7 +5,9 @@
         xmlns:Globalizer="clr-namespace:WPFSharp.Globalizer;assembly=WPFSharp.Globalizer"
         Title="{DynamicResource MainWindow_Title}" 
         Height="350" Width="525"
-        FlowDirection="{DynamicResource ResourceKey=FlowDirection_Default}">
+        FlowDirection="{DynamicResource ResourceKey=FlowDirection_Default}"
+        Background="{DynamicResource ResourceKey=MainWindowBackground}"
+        >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -29,20 +31,16 @@
                     <MenuItem Header="{Globalizer:GlobalizedResource Menu_File_Exit, FallbackValue='E_xit'}" Click="MenuItem_Exit_Click" />
                 </MenuItem>
                 <globcntrls:LanguageSelectionMenuItem />
-                <!--<MenuItem Name="menuItemLanguages" Header="{Globalizer:GlobalizedResource Menu_Language, FallbackValue=Language}">
-                    <MenuItem Tag="en-US" Header="{Globalizer:GlobalizedResource Menu_Language_English, FallbackValue=English}" />
-                    <MenuItem Tag="es-ES" Header="{Globalizer:GlobalizedResource Menu_Language_Spanish, FallbackValue=Spanish}" />
-                    <MenuItem Tag="he-IL" Header="{Globalizer:GlobalizedResource Menu_Language_Hebrew, FallbackValue=Hebrew}" />
-                </MenuItem>-->
+                <globcntrls:StyleSelectionMenuItem />
             </Menu>
         </DockPanel>
-        <globcntrls:LanguageSelectionUserControl Grid.Row="1" Grid.Column="2" />
-        <Label Content="{Globalizer:GlobalizedResource Form_FirstName, FallbackValue=FirstName}" Name="labelFirstName" Grid.Row="3" FlowDirection="{Globalizer:GlobalizedResource FlowDirection_Reverse, FallbackValue=RightToLeft}" Grid.Column="1" />
-        <Label Content="{Globalizer:GlobalizedResource Form_LastName, FallbackValue=LastName}" Name="labelLastName" Grid.Row="4" FlowDirection="{Globalizer:GlobalizedResource FlowDirection_Reverse, FallbackValue=RightToLeft}" Grid.Column="1" />
-        <Label Content="{Globalizer:GlobalizedResource Form_Age, FallbackValue=Age}" Name="labelAge" Grid.Row="5" FlowDirection="{Globalizer:GlobalizedResource FlowDirection_Reverse, FallbackValue=RightToLeft}" Grid.Column="1" />
+        <globcntrls:LanguageSelectionDropDownMenu Grid.Row="1" Grid.Column="2" FlowDirection="{DynamicResource FlowDirection_Default}"/>
+        <Label Content="{Globalizer:GlobalizedResource Form_FirstName, FallbackValue='First Name'}" Name="labelFirstName" Grid.Row="3" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
+        <Label Content="{Globalizer:GlobalizedResource Form_LastName, FallbackValue='Last Name'}" Name="labelLastName" Grid.Row="4" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
+        <Label Content="{Globalizer:GlobalizedResource Form_Age, FallbackValue=Age}" Name="labelAge" Grid.Row="5" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
         <TextBox Name="FirstNameTextBox" Grid.Column="2" Grid.Row="3" />
         <TextBox Name="LastNameTextBox" Grid.Column="2" Grid.Row="4" />
         <TextBox Name="AgeTextBox" Grid.Column="2" Grid.Row="5" />
-        <Button Content="{Globalizer:GlobalizedResource Form_Button_Clear, FallbackValue=Clear}" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" Name="ButtonClear" Width="75" Click="button1_Click" />
+        <Button Content="{Globalizer:GlobalizedResource Form_Button_Clear, FallbackValue=Clear}" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" Name="ButtonClear" Width="75" MinHeight="20" Click="button1_Click" />
     </Grid>
 </Window>
