@@ -12,13 +12,9 @@ modification, are permitted provided that the following conditions are met:
 2. Redistributions in binary form must reproduce the above copyright notice,
    this list of conditions and the following disclaimer in the documentation
    and/or other materials provided with the distribution.
-3. Use of the source code or binaries for a competing project, whether open
-   source or commercial, is prohibited unless permission is specifically
-   granted under a separate license by Rhyous.com.
-4. Source code enhancements or additions are the property of the author until
-   the source code is contributed to this project. By contributing the source
-   code to this project, the author immediately grants all rights to
-   the contributed source code to Rhyous.com.
+3. Use of the source code or binaries that in any way competes with this
+   project, whether open source or commercial or other, is prohibited unless 
+   permission is granted under a separate license by Rhyous.com.
  
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
