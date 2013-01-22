@@ -20,7 +20,7 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>WPFSharp.Globalizer.Key.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>WPFSharp.Globalizer.Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -111,6 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="WPFSharp.Globalizer.Key.pfx" />
+    <None Include="WPFSharp.Globalizer.Key.pfx.snk" />
+    <None Include="WPFSharp.Globalizer.Key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
