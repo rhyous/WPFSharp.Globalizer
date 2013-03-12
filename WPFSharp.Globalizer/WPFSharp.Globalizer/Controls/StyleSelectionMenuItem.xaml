@@ -1,4 +1,29 @@
-﻿<!-- 
+﻿<!-- See license at bottom of file -->
+<MenuItem x:Class="WPFSharp.Globalizer.Controls.StyleSelectionMenuItem"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+          xmlns:Globalizer="clr-namespace:WPFSharp.Globalizer"
+          Name="MenuItemStyles" 
+          Header="{Globalizer:GlobalizedResource Menu_Styles, FallbackValue=Styles}" 
+          ItemsSource="{x:Static Globalizer:AvailableStyles.Instance}"  
+          >
+    <MenuItem.Resources>
+        <RadioButton x:Key="RadioButtonResource" x:Shared="false" HorizontalAlignment="Center" 
+                     IsHitTestVisible="False" GroupName="StyleGroup"
+                     Command="{Binding Path=SelectStyleCommand, ElementName=MenuItemStyles}" 
+                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MenuItem}}, Path=Header}" />
+    </MenuItem.Resources>
+    <MenuItem.ItemContainerStyle>
+        <Style TargetType="MenuItem">
+            <Setter Property="Icon" Value="{DynamicResource RadioButtonResource}"/>
+            <EventSetter Event="Click" Handler="MenuItemWithRadioButtons_Click" />
+            <Setter Property="Command" Value="{Binding Path=SelectStyleCommand, ElementName=MenuItemStyles}"/>
+            <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
+        </Style>
+    </MenuItem.ItemContainerStyle>
+</MenuItem>
+
+<!-- 
 WPF Sharp Globalizer - A project deisgned to make localization and styling
                        easier by decoupling both process from the build.
 
@@ -32,27 +57,3 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
-
-<MenuItem x:Class="WPFSharp.Globalizer.Controls.StyleSelectionMenuItem"
-          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-          xmlns:Globalizer="clr-namespace:WPFSharp.Globalizer"
-          Name="MenuItemStyles" 
-          Header="{Globalizer:GlobalizedResource Menu_Styles, FallbackValue=Styles}" 
-          ItemsSource="{x:Static Globalizer:AvailableStyles.Instance}"  
-          >
-    <MenuItem.Resources>
-        <RadioButton x:Key="RadioButtonResource" x:Shared="false" HorizontalAlignment="Center" 
-                     IsHitTestVisible="False" GroupName="StyleGroup"
-                     Command="{Binding Path=SelectStyleCommand, ElementName=MenuItemStyles}" 
-                     CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MenuItem}}, Path=Header}" />
-    </MenuItem.Resources>
-    <MenuItem.ItemContainerStyle>
-        <Style TargetType="MenuItem">
-            <Setter Property="Icon" Value="{DynamicResource RadioButtonResource}"/>
-            <EventSetter Event="Click" Handler="MenuItemWithRadioButtons_Click" />
-            <Setter Property="Command" Value="{Binding Path=SelectStyleCommand, ElementName=MenuItemStyles}"/>
-            <Setter Property="CommandParameter" Value="{Binding RelativeSource={RelativeSource Self}, Path=Header}"/>
-        </Style>
-    </MenuItem.ItemContainerStyle>
-</MenuItem>

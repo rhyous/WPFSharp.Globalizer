@@ -110,8 +110,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="WPFSharp.Globalizer.Key.pfx" />
-    <None Include="WPFSharp.Globalizer.Key.pfx.snk" />
     <None Include="WPFSharp.Globalizer.Key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
