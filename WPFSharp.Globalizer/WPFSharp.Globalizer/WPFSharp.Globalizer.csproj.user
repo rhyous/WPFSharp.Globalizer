@@ -4,4 +4,12 @@
     <StartAction>Program</StartAction>
     <StartProgram>C:\Users\Jared\Documents\Visual Studio 2010\Projects\Git\globalizer\WPFSharp.Globalizer.Examples\WPF.Globalizer.Example\bin\x64\Debug\WPFSharp.Globalizer.Example.exe</StartProgram>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartProgram>C:\Users\Jared\Documents\Visual Studio 2010\Projects\Git\globalizer\WPFSharp.Globalizer.Examples\WPF.Globalizer.Example\bin\x64\Debug\WPFSharp.Globalizer.Example.exe</StartProgram>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartProgram>C:\Users\Jared\Documents\Visual Studio 2010\Projects\Git\globalizer\WPFSharp.Globalizer.Examples\WPF.Globalizer.Example\bin\x64\Debug\WPFSharp.Globalizer.Example.exe</StartProgram>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
 </Project>
