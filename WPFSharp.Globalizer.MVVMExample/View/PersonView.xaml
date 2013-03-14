@@ -30,7 +30,7 @@
                     <MenuItem Header="{Globalizer:GlobalizedResource Menu_File_Exit, FallbackValue='E_xit'}" Click="MenuItem_Exit_Click" />
                 </MenuItem>
                 <globcntrls:LanguageSelectionMenuItemList Header="{Globalizer:GlobalizedResource Menu_Language, FallbackValue=Language}"/>
-                <globcntrls:StyleSelectionMenuItemList Header="{Globalizer:GlobalizedResource Menu_Styles, FallbackValue=Language}"/>
+                <globcntrls:StyleSelectionMenuItemList Header="{Globalizer:GlobalizedResource Menu_Styles, FallbackValue=Styles}"/>
             </Menu>
         </DockPanel>
         <DockPanel Grid.Row="1" Grid.Column="2" >
