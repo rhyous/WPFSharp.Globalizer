@@ -18,6 +18,9 @@
     <sys:String x:Key="Menu_Language_Spanish">_Spanish</sys:String>
     <sys:String x:Key="Menu_Language_Hebrew">_Hebrew</sys:String>
 
+    <sys:String x:Key="LanguageSelectionLabel">_Language</sys:String>
+    
+
     <!-- Form strings -->
     <!-- The following line is commented out on purpose in this example in order to demonstrate the FallbackValue -->
     <!--<sys:String x:Key="Form_FirstName">First Name</sys:String>-->

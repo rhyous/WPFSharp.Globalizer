@@ -47,7 +47,7 @@ namespace WPFSharp.Globalizer
         /// <summary>
         /// An event that is fired when a ResourceDictionary is changed.
         /// </summary>
-        event EventHandler ResourceDictionaryChangedEvent;
+        event ResourceDictionaryChangedEventHandler ResourceDictionaryChangedEvent;
 
         /// <summary>
         /// The list of resource dictionary .xaml files
@@ -85,6 +85,6 @@ namespace WPFSharp.Globalizer
         /// <summary>
         /// A method to fire the ResourceDictionaryChangedEvent
         /// </summary>
-        void NotifyResourceDictionaryChanged();
+        void NotifyResourceDictionaryChanged(ResourceDictionaryChangedEventArgs inEventArgs);
     }
 }

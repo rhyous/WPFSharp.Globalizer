@@ -1,4 +1,43 @@
-﻿#region License
+﻿// See license at end of the file
+using System.Windows.Controls;
+using System.Windows.Data;
+using WPFSharp.Globalizer.Converters;
+
+namespace WPFSharp.Globalizer.Controls
+{
+    public class LanguageSelectionComboBox : ComboBox
+    {
+        public LanguageSelectionComboBox()
+        {
+            var itemSourceBinding = new Binding
+                {
+                    Source = AvailableLanguages.Instance,
+                    BindsDirectlyToSource = true,
+                    Converter = new LanguageNameListConverter()
+                };
+            SetBinding(ItemsSourceProperty, itemSourceBinding);
+            
+            SelectionChanged += LanguageSelectionComboBox_SelectionChanged;
+
+            var selectedItemBinding = new Binding("SelectedLanguage")
+                {
+                    Source = AvailableLanguages.Instance,
+                    Converter = new LanguageNameConverter(),
+                    Mode = BindingMode.OneWay
+                };
+            SetBinding(SelectedItemProperty, selectedItemBinding);
+        }
+
+        void LanguageSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var converter = new LanguageNameConverter();
+            GlobalizedApplication.Instance.GlobalizationManager.SwitchLanguage(converter.ConvertBack(e.AddedItems[0].ToString(), typeof(string), null, null).ToString());
+        }
+    }
+}
+
+
+#region License
 /*
 WPF Sharp Globalizer - A project deisgned to make localization and styling
                        easier by decoupling both process from the build.
@@ -34,45 +73,3 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
-
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows;
-using System.Windows.Media;
-
-namespace WPFSharp.Globalizer.Controls
-{
-    /// <summary>
-    /// Interaction logic for StyleSelectionMenuItem.xaml
-    /// </summary>
-    public partial class StyleSelectionMenuItem
-    {
-        public StyleSelectionMenuItem()
-        {
-            InitializeComponent();
-            SelectStyleCommand = new RelayCommand(SelectStyle);
-        }
-
-        public ICommand SelectStyleCommand { get; set; }
-
-        public void SelectStyle(object inStyle)
-        {
-            string lang = inStyle as string;
-            if (!string.IsNullOrWhiteSpace(lang))
-                GlobalizedApplication.Instance.StyleManager.SwitchStyle(inStyle.ToString() + ".xaml");
-        }
-
-        private void MenuItemWithRadioButtons_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            MenuItem mi = sender as MenuItem;
-            if (mi != null)
-            {
-                RadioButton rb = mi.Icon as RadioButton;
-                if (rb != null)
-                {
-                    rb.IsChecked = true;
-                }
-            }
-        }
-    }
-}

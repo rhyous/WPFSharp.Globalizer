@@ -48,7 +48,7 @@ namespace WPFSharp.Globalizer
     {
         #region IManageResourceDictionaries Events
 
-        public virtual event EventHandler ResourceDictionaryChangedEvent;
+        public virtual event ResourceDictionaryChangedEventHandler ResourceDictionaryChangedEvent;
 
         #endregion
 
@@ -97,11 +97,11 @@ namespace WPFSharp.Globalizer
             MergedDictionaries.Clear();
         }
 
-        public virtual void NotifyResourceDictionaryChanged()
+        public virtual void NotifyResourceDictionaryChanged(ResourceDictionaryChangedEventArgs inEventArgs = null)
         {
             if (null != ResourceDictionaryChangedEvent)
             {
-                ResourceDictionaryChangedEvent(this, new EventArgs());
+                ResourceDictionaryChangedEvent(this, inEventArgs ?? new ResourceDictionaryChangedEventArgs());
             }
         }
 

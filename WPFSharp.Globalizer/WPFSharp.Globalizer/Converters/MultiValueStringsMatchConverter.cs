@@ -1,4 +1,36 @@
-﻿#region License
+﻿// See license at end of file
+using System;
+using System.Globalization;
+using System.Windows.Data;
+
+namespace WPFSharp.Globalizer.Converters
+{
+    class MultiValueStringsMatchConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null || values.Length == 1)
+                return false;
+
+            string first = null;
+            if (values[0] != null)
+                first = values[0].ToString();
+            foreach (string value in values)
+            {
+                if (value != first)
+                    return false;
+            }
+            return true;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
+
+#region License
 /*
 WPF Sharp Globalizer - A project deisgned to make localization and styling
                        easier by decoupling both process from the build.
@@ -34,30 +66,3 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
-
-using System;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace WPFSharp.Globalizer.Converters
-{
-    class LanguageToBoolConverter : IValueConverter
-    {
-        #region IValueConverter Members
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            string lang = value as string;
-            if (CultureInfo.CurrentCulture.Name.Equals(value))
-                return true;
-            return false;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-    }
-}

@@ -55,6 +55,8 @@ namespace WPFSharp.Globalizer
 
             // Add new Resource Dictionaries
             LoadDictionariesFromFiles(FileNames);
+            var args = new ResourceDictionaryChangedEventArgs { ResourceDictionaryPaths = FileNames };
+            NotifyResourceDictionaryChanged(args);
         }
 
         private void RemoveGlobalizationResourceDictionaries()
@@ -71,7 +73,8 @@ namespace WPFSharp.Globalizer
             {
                 GlobalizedApplication.Instance.Resources.MergedDictionaries.Remove(erd);
                 // Also remove any associated LinkedStyles
-                if ((erd as GlobalizationResourceDictionary).LinkedStyle != null)
+                var globalizationResourceDictionary = erd as GlobalizationResourceDictionary;
+                if (globalizationResourceDictionary != null && globalizationResourceDictionary.LinkedStyle != null)
                     Remove((erd as GlobalizationResourceDictionary).LinkedStyle);
             }
         }
@@ -124,17 +127,18 @@ namespace WPFSharp.Globalizer
 
                 MergedDictionaries.Add(globalizationResourceDictionary);
 
-                if (globalizationResourceDictionary.LinkedStyle != null)
+                if (globalizationResourceDictionary.LinkedStyle == null)
+                    continue;
+
+                var styleFile = globalizationResourceDictionary.LinkedStyle + ".xaml";
+                if (globalizationResourceDictionary.Source != null)
                 {
-                    string styleFile = globalizationResourceDictionary.LinkedStyle + ".xaml";
-                    if (globalizationResourceDictionary.Source != null)
-                    {
-                        string path = Path.Combine(Path.GetDirectoryName(globalizationResourceDictionary.Source), styleFile);
-                        MergedDictionaries.Add(LoadFromFile(path, false));
-                        return;
-                    }
-                    MergedDictionaries.Add(LoadFromFile(styleFile, false));
+                    var path = Path.Combine(Path.GetDirectoryName(globalizationResourceDictionary.Source), styleFile);
+                    // Todo: Check for file and if not there, look in the Styles dir
+                    MergedDictionaries.Add(LoadFromFile(path, false));
+                    return;
                 }
+                MergedDictionaries.Add(LoadFromFile(styleFile, false));
             }
         }
 

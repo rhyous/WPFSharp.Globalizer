@@ -1,4 +1,42 @@
-﻿#region License
+﻿// See license at the end of the file
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Data;
+
+namespace WPFSharp.Globalizer.Converters
+{
+    class LanguageNameConverter : IValueConverter
+    {
+        #region IValueConverter Members
+
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var lang = value as string;
+
+            if (string.IsNullOrWhiteSpace(lang))
+                return null;
+            
+            var ci = new CultureInfo(value.ToString());
+            return ci.DisplayName;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            var lang = value as string;
+
+            if (string.IsNullOrWhiteSpace(lang))
+                return null;
+
+            var keyvalue = AvailableLanguages.Instance.CultureInfoMap.FirstOrDefault(x => x.Value == lang);
+            return keyvalue.Key;
+        }
+
+        #endregion
+    }
+}
+
+#region License
 /*
 WPF Sharp Globalizer - A project deisgned to make localization and styling
                        easier by decoupling both process from the build.
@@ -34,33 +72,3 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
-
-using System;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace WPFSharp.Globalizer.Converters
-{
-    class LanguageNameConverter : IValueConverter
-    {
-        #region IValueConverter Members
-
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            string lang = value as string;
-
-            if (string.IsNullOrWhiteSpace(lang))
-                return null;
-
-            var ci = new CultureInfo(value.ToString());
-            return ci.DisplayName;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-    }
-}

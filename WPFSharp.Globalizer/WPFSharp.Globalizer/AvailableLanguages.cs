@@ -35,15 +35,25 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #endregion
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Globalization;
 using System.IO;
+using System.Windows;
 
 namespace WPFSharp.Globalizer
 {
-    public class AvailableLanguages : List<string>
+    public class AvailableLanguages : List<string>, INotifyPropertyChanged
     {
         private AvailableLanguages()
         {
+            GlobalizedApplication.Instance.GlobalizationManager.ResourceDictionaryChangedEvent += GlobalizationManager_ResourceDictionaryChangedEvent;
+        }
+
+        private void GlobalizationManager_ResourceDictionaryChangedEvent(object sender, System.EventArgs e)
+        {
+            NotifyPropertyChanged("SelectedLanguage");
         }
 
         public static AvailableLanguages Instance { get; set; }
@@ -51,6 +61,11 @@ namespace WPFSharp.Globalizer
         public static void CreateInstance()
         {
             Instance = new AvailableLanguages();
+        }
+
+        public string SelectedLanguage
+        {
+            get { return CultureInfo.CurrentCulture.IetfLanguageTag; }
         }
 
         public void AddListFromSubDirectories(string inPath)
@@ -64,5 +79,37 @@ namespace WPFSharp.Globalizer
                 }
             }
         }
+
+        new public void Add(string inString)
+        {
+            base.Add(inString);
+            try
+            {
+                var ci = new CultureInfo(inString);
+                CultureInfoMap.Add(ci.IetfLanguageTag, ci.DisplayName);
+            }
+            catch (ArgumentException ae)
+            {
+                MessageBox.Show("Invalid language: " + inString);
+                throw;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string inPropertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                var e = new PropertyChangedEventArgs(inPropertyName);
+                handler(this, e);
+            }
+        }
+
+        public Dictionary<string, string> CultureInfoMap
+        {
+            get { return _CultureInfoMap ?? (_CultureInfoMap = new Dictionary<string, string>()); }
+        } private Dictionary<string, string> _CultureInfoMap;
     }
 }

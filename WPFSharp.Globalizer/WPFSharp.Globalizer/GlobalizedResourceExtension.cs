@@ -78,7 +78,12 @@ namespace WPFSharp.Globalizer
 
             // Use FallbackValue if it exists by adding it to the FallbackResourceDictionary.
             if (FallbackValue != null)
+            {
+                // Remove it in case it is already there
+                GlobalizedApplication.Instance.FallbackResourceDictionary.Remove(ResourceKey);
+                // Add it
                 GlobalizedApplication.Instance.FallbackResourceDictionary.Add(ResourceKey, FallbackValue);
+            }
 
             return base.ProvideValue(inServiceProvider);
         }

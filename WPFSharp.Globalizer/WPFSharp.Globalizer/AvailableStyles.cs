@@ -36,23 +36,45 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 
 namespace WPFSharp.Globalizer
 {
-    public class AvailableStyles : List<string>
+    public class AvailableStyles : List<string>, INotifyPropertyChanged
     {
         private AvailableStyles()
         {
+            GlobalizedApplication.Instance.StyleManager.ResourceDictionaryChangedEvent += GlobalizationManager_ResourceDictionaryChangedEvent;
+        }
+
+        private void GlobalizationManager_ResourceDictionaryChangedEvent(object sender, ResourceDictionaryChangedEventArgs args)
+        {
+            if (args == null || args.ResourceDictionaryNames == null || args.ResourceDictionaryNames[0] == null)
+                return;
+
+            SelectedStyle = args.ResourceDictionaryNames[0];
         }
 
         public static AvailableStyles Instance { get; set; }
+
+        public string SelectedStyle
+        {
+            get { return _SelectedStyle; }
+            set
+            {
+                if (_SelectedStyle == value)
+                    return;
+                _SelectedStyle = value;
+                NotifyPropertyChanged("SelectedStyle");
+            }
+        } private string _SelectedStyle;
 
         public static void CreateInstance()
         {
             Instance = new AvailableStyles();
         }
-        
+
         public void AddListFromSubDirectories(string inPath)
         {
             if (Directory.Exists(inPath))
@@ -75,6 +97,18 @@ namespace WPFSharp.Globalizer
                     // Todo: Verify file is valid Style
                     Add(Path.GetFileNameWithoutExtension(file));
                 }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged(string inPropertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                var e = new PropertyChangedEventArgs(inPropertyName);
+                handler(this, e);
             }
         }
     }

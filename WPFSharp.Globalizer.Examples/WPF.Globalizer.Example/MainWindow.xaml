@@ -30,11 +30,14 @@
                 <MenuItem Header="{Globalizer:GlobalizedResource Menu_File, FallbackValue='_File'}">
                     <MenuItem Header="{Globalizer:GlobalizedResource Menu_File_Exit, FallbackValue='E_xit'}" Click="MenuItem_Exit_Click" />
                 </MenuItem>
-                <globcntrls:LanguageSelectionMenuItem />
-                <globcntrls:StyleSelectionMenuItem />
+                <globcntrls:LanguageSelectionMenuItemList Header="{Globalizer:GlobalizedResource Menu_Language, FallbackValue=Language}"/>
+                <globcntrls:StyleSelectionMenuItemList Header="{Globalizer:GlobalizedResource Menu_Styles, FallbackValue=Styles}" />
             </Menu>
         </DockPanel>
-        <globcntrls:LanguageSelectionDropDownMenu Grid.Row="1" Grid.Column="2" FlowDirection="{DynamicResource FlowDirection_Default}"/>
+        <DockPanel Grid.Row="1" Grid.Column="2" >
+            <Label Content="{Globalizer:GlobalizedResource Menu_Language, FallbackValue=Language}" DockPanel.Dock="Left"/>
+            <globcntrls:LanguageSelectionComboBox FlowDirection="{DynamicResource FlowDirection_Default}" />
+        </DockPanel>
         <Label Content="{Globalizer:GlobalizedResource Form_FirstName, FallbackValue='First Name'}" Name="labelFirstName" Grid.Row="3" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
         <Label Content="{Globalizer:GlobalizedResource Form_LastName, FallbackValue='Last Name'}" Name="labelLastName" Grid.Row="4" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
         <Label Content="{Globalizer:GlobalizedResource Form_Age, FallbackValue=Age}" Name="labelAge" Grid.Row="5" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />

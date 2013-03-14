@@ -40,7 +40,11 @@ namespace WPFSharp.Globalizer
             {
                 RemoveResourceDictionaries();
                 MergedDictionaries.Add(LoadFromFile(path) as StyleResourceDictionary);
-                NotifyResourceDictionaryChanged();
+                var args = new ResourceDictionaryChangedEventArgs();
+                args.ResourceDictionaryNames.Add(Path.GetFileNameWithoutExtension(inFileName));
+                args.ResourceDictionaryPaths.Add(path);
+
+                NotifyResourceDictionaryChanged(args);
             }
             else
             {
@@ -55,7 +59,8 @@ namespace WPFSharp.Globalizer
             if (!Path.IsPathRooted(inFile))
             {
                 string exedir = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                file = Path.Combine(exedir, inFile);
+                if (exedir != null)
+                    file = Path.Combine(exedir, inFile);
             }
 
             if (!File.Exists(file))
