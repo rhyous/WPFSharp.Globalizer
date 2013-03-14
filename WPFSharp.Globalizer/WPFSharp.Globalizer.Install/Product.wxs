@@ -22,12 +22,6 @@
               <File Id="Dir_GlobalizerDll" Name="WPFSharp.Globalizer.dll" Source="..\bin\$(var.WPFSharp.Globalizer.Configuration)\WPFSharp.Globalizer.dll" KeyPath="yes"/>
               <RegistryValue Id="Reg_GlobalizerDll" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.21006\AssemblyFoldersEx\WPFSharp.Globalizer" Value="[$Dir_GlobalizerComponent]" Type="string"/>
             </Component>
-            <!-- Runtime, assembly in GAC -->
-            <!--<Directory Id="GAC" Name="GAC">
-              <Component Id="GAC_GlobalizerComponent" Guid="836B88F7-A009-4B9B-95F4-B30C2C525C11" DiskId="1" Win64="yes">
-                <File Id="GAC_GlobalizerDll" Name="WPFSharp.Globalizer.dll" Source="..\bin\$(var.WPFSharp.Globalizer.Configuration)\WPFSharp.Globalizer.dll" KeyPath="yes" Assembly=".net"/>
-              </Component>
-            </Directory>-->
           </Directory>
         </Directory>
       </Directory>
