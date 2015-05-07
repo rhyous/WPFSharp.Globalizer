@@ -117,8 +117,10 @@
     <Compile Include="Controls\LanguageSelectionMenuItemList.cs" />
     <Compile Include="Converters\LanguageNameListConverter.cs" />
     <Compile Include="Converters\MultiValueStringsMatchConverter.cs" />
+    <Compile Include="Converters\LocalizationConverter.cs" />
     <Compile Include="EnhancedResourceDictionary.cs" />
     <Compile Include="IManageResourceDictionaries.cs" />
+    <Compile Include="LocalizationBinding.cs" />
     <Compile Include="ResourceDictionaryChangedEvent.cs" />
     <Compile Include="ResourceDictionaryManagerBase.cs" />
     <Compile Include="AvailableStyles.cs" />
