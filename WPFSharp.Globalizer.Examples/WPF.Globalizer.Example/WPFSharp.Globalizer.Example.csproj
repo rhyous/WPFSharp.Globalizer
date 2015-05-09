@@ -191,7 +191,7 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WPFSharp.Globalizer\WPFSharp.Globalizer\WPFSharp.Globalizer.csproj">
+    <ProjectReference Include="..\..\WPFSharp.Globalizer\WPFSharp.Globalizer.csproj">
       <Project>{715461e8-4e54-4993-80a8-8e72892135e0}</Project>
       <Name>WPFSharp.Globalizer</Name>
     </ProjectReference>
