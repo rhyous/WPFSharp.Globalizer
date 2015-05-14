@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WPFSharp.Globalizer</id>
+    <version>1.0.2.1</version>
+    <title>WPFSharp.Globalizer</title>
+    <authors>J. Abram Barneck</authors>
+    <owners>J. Abram Barneck</owners>
+    <description>A library for localizing WPF. Allows switching languages at run time.</description>
+    <releaseNotes></releaseNotes>
+    <summary>A library for localizing WPF. Allows switching languages at run time.</summary>
+    <language>en-US</language>
+    <projectUrl>http://rhyous.github.io/WPFSharp.Globalizer</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/rhyous/WPFSharp.Globalizer/master/Documentation/Images/WPFSharp.Globalizer.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/rhyous/WPFSharp.Globalizer/blob/master/Fork%20and%20Contribute%20License.txt</licenseUrl>
+    <copyright>Copyright Jared Barneck (Rhyous) 2015</copyright>
+    <!--<dependencies>
+        <group targetFramework="net40">
+          <dependency id="log4net" version="1.2.10" />
+        </group>
+    </dependencies>-->
+    <references></references>
+    <tags>WPF XAML Localization Globalization</tags>
+  </metadata>
+  <files>
+    <file src="lib\" target="lib"  />
+    <file src="tools\" target="tools" />
+    <file src="content\" target="content" />
+  </files>
+</package>

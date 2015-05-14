@@ -32,6 +32,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{D1594064-D2EE-4ED8-A38C-8D34BDB59606}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFSharp.Globalizer.NuGet", "WPFSharp.Globalizer.NuGet\WPFSharp.Globalizer.NuGet.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+	ProjectSection(ProjectDependencies) = postProject
+		{715461E8-4E54-4993-80A8-8E72892135E0} = {715461E8-4E54-4993-80A8-8E72892135E0}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,6 +99,7 @@ Global
 		{BE154F14-F9BC-4679-866F-2E5E43095E70}.Release|x86.ActiveCfg = Release|x86
 		{BE154F14-F9BC-4679-866F-2E5E43095E70}.Release|x86.Build.0 = Release|x86
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x64.ActiveCfg = Debug|x64
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|x86.ActiveCfg = Debug|x86
 		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
