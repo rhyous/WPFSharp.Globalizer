@@ -15,7 +15,7 @@ namespace WPFSharp.Globalizer.Controls
         #region Constructors
         /// <summary>
         /// Constructor for RelayCommand that only takes a method to run.
-        /// No CanExecute method is passes, so CanExecute will always be true.
+        /// No CanExecute method is passed, so CanExecute will always be true.
         /// </summary>
         /// <param name="inMethodToExecute">The method to execute. Could be a lambda.</param>
         public RelayCommand(Action<object> inMethodToExecute)
