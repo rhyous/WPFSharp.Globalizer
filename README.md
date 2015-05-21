@@ -86,6 +86,7 @@ Hard way:
 8. Make the root object StyleResourceDictionary.
 9. Set the Name attribute. Notces the name is the same as the filename without the extension.
 10. Add some styles. This file shouldn't be too big. It should only hold styles changes specific to a language.
+
     ```
     <Globalization:StyleResourceDictionary 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -124,6 +125,7 @@ To add an additional style, follow these steps:
 2. Make the root object StyleResourceDictionary.
 3. Set the Name attribute. Notces the name is the same as the filename without the extension.
 4. Add some styles. This file could get massive as unlike the language file, this could hold all styles.
+
     ```
     <Globalization:StyleResourceDictionary 
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
