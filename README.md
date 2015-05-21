@@ -1,4 +1,4 @@
-# WPFSharp.Globalizer
+## WPFSharp.Globalizer ##
 
 A tool to simplify localization for WPF.
 
@@ -10,7 +10,7 @@ You should use this project if:
 * Want to localize WPF without having to put UIDs on every single WPF Element?
 * Want the style to change with the language? (or even only certain parts of the style)
 
-# How to install #
+## How to install ##
 
 1. In a WPF application, install from NuGet.
 
@@ -25,7 +25,7 @@ You should use this project if:
     If you choose yes, great. Done.
     If you choose no, then manually change App.xaml and App.xaml.cs to inherit GlobalizedApplication.
 
-# How to Add a language #
+## How to Add a language ##
 
 A language implementation involves two files in the following folder structure:
 
@@ -54,10 +54,12 @@ Globalization\he-IL\he-IL.xaml  |
 To add an additional language file, follow these steps.
 
 Easy way:
+
 1. Copy one of the existing language folders.
 2. Change the folder name to the 5 character ISO name. This means it is the two letter language code followed by a dash then the two letter country code. You can read RFC5646 (http://tools.ietf.org/html/rfc5646) if you want.
 
 Hard way:
+
 1. Add a folder names using the 5 character ISO name as the  to the Globalization folder. 
 2. Manually create the <lang>.xaml file.
 3. Make the root of the Xaml file GlobalizationResourceDictionary.
@@ -103,7 +105,7 @@ Hard way:
     </Globalization:StyleResourceDictionary>
     ```
 
-# How to add a style #
+## How to add a style ##
 
 Styles can also be applied at runtime. You can create any number of styles. Styles are not the same as Language styles.
 
