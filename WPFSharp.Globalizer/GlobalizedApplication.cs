@@ -1,5 +1,6 @@
 ﻿// See license at bottom of file
 using System;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -18,6 +19,11 @@ namespace WPFSharp.Globalizer
         {
             // Make App a singleton
             Instance = this;
+            
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
             Init();
         }
 
@@ -43,7 +49,15 @@ namespace WPFSharp.Globalizer
 
             // Get current 5 character language and load the appropriate Globalization file
             CreateAvailableLanguages();
-            GlobalizationManager.SwitchLanguage(Thread.CurrentThread.CurrentCulture.Name, true);
+            try
+            {
+                GlobalizationManager.SwitchLanguage(Thread.CurrentThread.CurrentCulture.Name, true);
+            }
+            catch(CultureNotFoundException)
+            {
+                // Try the fallback
+                GlobalizationManager.SwitchLanguage("en-US", true);
+            }
 
             // Create the FallbackResourceDictionary
             FallbackResourceDictionary = new FallbackResourceDictionary() { Name = "Fallback" };
