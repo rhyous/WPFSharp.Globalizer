@@ -37,11 +37,16 @@ namespace WPFSharp.Globalizer
             if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang) && !inForceSwitch)
                 return;
 
+            if(!AvailableLanguages.Instance.Contains(inFiveCharLang))
+            {
+                throw new CultureNotFoundException(String.Format("The language {0} is not available.", inFiveCharLang));
+            }
+
             // Set the new language
             var ci = new CultureInfo(inFiveCharLang);
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
-
+            
             string[] xamlFiles = Directory.GetFiles(Path.Combine(DefaultPath, inFiveCharLang), "*.xaml");
 
             // If there are no files, do nothing
@@ -135,10 +140,20 @@ namespace WPFSharp.Globalizer
                 {
                     var path = Path.Combine(Path.GetDirectoryName(globalizationResourceDictionary.Source), styleFile);
                     // Todo: Check for file and if not there, look in the Styles dir
-                    MergedDictionaries.Add(LoadFromFile(path, false));
+
+                    var tempStyleDict = LoadFromFile(path, false);
+                    if (tempStyleDict != null)
+                    {
+                        MergedDictionaries.Add(tempStyleDict);
+                    }
                     return;
                 }
-                MergedDictionaries.Add(LoadFromFile(styleFile, false));
+
+                var styleDict = LoadFromFile(styleFile, false);
+                if (styleDict != null)
+                {
+                    MergedDictionaries.Add(styleDict);
+                }
             }
         }
 
