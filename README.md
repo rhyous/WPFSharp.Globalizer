@@ -113,7 +113,7 @@ Styles can also be applied at runtime. You can create any number of styles. Styl
 * Language Styles = Has styles changes specific to a language. For example, in Hebrew the FlowDirection changes to right to left.
 * Styles = The overall theme of the application. If you have a blue theme, the blue theme should remain in effect even if the language changes.
 
-Style folder structure is simply. There is a single file for a style.
+Style folder structure is simple. There is a single file for a style.
 
 Styles\Default Style.xaml
 Styles\Red.xaml
