@@ -1,25 +1,48 @@
 ﻿using MVVM;
+using WPFSharp.Globalizer.MVVMExample.Model;
 
 namespace WPFSharp.Globalizer.MVVMExample.ViewModel
 {
     class PersonViewModel : ViewModelBase
     {
         #region Properties
-        public string FirstNameLabel
+        public string FirstNameLabel => "Form_FirstName";
+
+        public string LastNameLabel => "Form_LastName";
+
+        public string AgeLabel => "Form_Age";
+
+        private Person Person { get; } = new Person();
+
+        public string FirstNameValue
         {
-            get { return "Form_FirstName"; }
+            get { return Person.FirstName; }
+            set
+            {
+                Person.FirstName = value;
+                NotifyPropertyChanged("FirstNameValue");
+            }
         }
 
-        public string LastNameLabel
+        public string LastNameValue
         {
-            get { return "Form_LastName"; }
+            get { return Person.LastName; }
+            set
+            {
+                Person.LastName = value;
+                NotifyPropertyChanged("LastNameValue");
+            }
         }
 
-        public string AgeLabel
+        public int AgeValue
         {
-            get { return "Form_Age"; }
+            get { return Person.Age; }
+            set
+            {
+                Person.Age = value;
+                NotifyPropertyChanged("AgeValue");
+            }
         }
-
         #endregion
     }
 }

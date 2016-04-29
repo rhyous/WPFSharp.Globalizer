@@ -7,10 +7,6 @@ namespace WPFSharp.Globalizer.MVVMExample.Model
 {
     class Person
     {
-        #region Member Variables
-        private String _Text = "Hello World";
-        #endregion
-
         #region Constructors
         /// <summary>
         /// The default constructor
@@ -21,11 +17,23 @@ namespace WPFSharp.Globalizer.MVVMExample.Model
         #endregion
 
         #region Properties
-        public String Text
+        public string FirstName
         {
-            get { return _Text; }
-            set { _Text = value; }
-        }
+            get { return _FirstName; }
+            set { _FirstName = value; }
+        } private string _FirstName = "Jared";
+
+        public string LastName
+        {
+            get { return _LastName; }
+            set { _LastName = value; }
+        } private string _LastName = "Barneck";
+
+        public int Age
+        {
+            get { return _Age; }
+            set { _Age = value; }
+        } private int _Age = 38;
         #endregion
 
         #region Functions

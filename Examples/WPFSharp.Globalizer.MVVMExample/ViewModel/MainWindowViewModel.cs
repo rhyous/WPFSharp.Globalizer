@@ -33,11 +33,5 @@ namespace WPFSharp.Globalizer.MVVMExample.ViewModel
             }
         }
         #endregion
-
-        #region Functions
-        #endregion
-
-        #region Enums
-        #endregion
     }
 }
