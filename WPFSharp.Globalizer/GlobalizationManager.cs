@@ -37,7 +37,7 @@ namespace WPFSharp.Globalizer
             if (CultureInfo.CurrentCulture.Name.Equals(inFiveCharLang) && !inForceSwitch)
                 return;
 
-            if(!AvailableLanguages.Instance.Contains(inFiveCharLang))
+            if (!AvailableLanguages.Instance.Contains(inFiveCharLang))
             {
                 throw new CultureNotFoundException(String.Format("The language {0} is not available.", inFiveCharLang));
             }
@@ -46,7 +46,7 @@ namespace WPFSharp.Globalizer
             var ci = new CultureInfo(inFiveCharLang);
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
-            
+
             string[] xamlFiles = Directory.GetFiles(Path.Combine(DefaultPath, inFiveCharLang), "*.xaml");
 
             // If there are no files, do nothing
@@ -101,22 +101,29 @@ namespace WPFSharp.Globalizer
             if (!File.Exists(file))
                 return null;
 
-            using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
+            try
             {
-                // Read in an EnhancedResourceDictionary File or preferably an GlobalizationResourceDictionary file
-                var erd = XamlReader.Load(fs) as EnhancedResourceDictionary;
-
-                if (erd != null)
+                using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    if (inRequireGlobalizationType)
-                    {
-                        if (erd is GlobalizationResourceDictionary)
-                            return erd;
+                    // Read in an EnhancedResourceDictionary File or preferably an GlobalizationResourceDictionary file
+                    var erd = XamlReader.Load(fs) as EnhancedResourceDictionary;
 
-                        return null;
+                    if (erd != null)
+                    {
+                        if (inRequireGlobalizationType)
+                        {
+                            if (erd is GlobalizationResourceDictionary)
+                                return erd;
+
+                            return null;
+                        }
                     }
+                    return erd;
                 }
-                return erd;
+            }
+            catch
+            {
+                return null;
             }
         }
 
