@@ -201,3 +201,4 @@ FakesAssemblies/
 
 *.nupkg
 *.bak
+/Examples/WPFSharp.Globalizer.MVVMExample/WPFSharp.Globalizer.MVVMExample.csproj.DotSettings

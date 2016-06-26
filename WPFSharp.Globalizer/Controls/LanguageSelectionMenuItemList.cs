@@ -11,7 +11,7 @@ namespace WPFSharp.Globalizer.Controls
     {
         public LanguageSelectionMenuItemList()
         {
-            ItemsSource = ItemsSource = AvailableLanguages.Instance;
+            ItemsSource = AvailableLanguages.Instance;
 
             var checkableMenuItemStyle = new Style { TargetType = typeof(MenuItem) };
 

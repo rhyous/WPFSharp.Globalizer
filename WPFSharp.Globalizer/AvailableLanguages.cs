@@ -1,6 +1,8 @@
 ﻿// See license at end of the file
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -8,7 +10,7 @@ using System.Windows;
 
 namespace WPFSharp.Globalizer
 {
-    public class AvailableLanguages : List<string>, INotifyPropertyChanged
+    public class AvailableLanguages : ObservableCollection<string>, INotifyPropertyChanged
     {
         private AvailableLanguages()
         {
@@ -18,6 +20,7 @@ namespace WPFSharp.Globalizer
         private void GlobalizationManager_ResourceDictionaryChangedEvent(object sender, EventArgs e)
         {
             NotifyPropertyChanged("SelectedLanguage");
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
         public static AvailableLanguages Instance { get; set; }
@@ -29,7 +32,7 @@ namespace WPFSharp.Globalizer
 
         public string SelectedLanguage
         {
-            get { return CultureInfo.CurrentCulture.IetfLanguageTag; }
+            get { return CultureInfo.CurrentCulture.Name; }
         }
 
         public void AddListFromSubDirectories(string inPath)
@@ -77,7 +80,6 @@ namespace WPFSharp.Globalizer
         } private Dictionary<string, string> _CultureInfoMap;
     }
 }
-
 
 #region License
 /*

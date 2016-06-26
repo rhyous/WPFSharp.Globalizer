@@ -114,7 +114,6 @@
     <Compile Include="Controls\StyleSelectionMenuItemList.cs" />
     <Compile Include="Controls\LanguageSelectionComboBox.cs" />
     <Compile Include="Controls\LanguageSelectionMenuItemList.cs" />
-    <Compile Include="Converters\LanguageNameListConverter.cs" />
     <Compile Include="Converters\MultiValueStringsMatchConverter.cs" />
     <Compile Include="Converters\LocalizationConverter.cs" />
     <Compile Include="EnhancedResourceDictionary.cs" />

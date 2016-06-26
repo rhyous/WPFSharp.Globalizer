@@ -1,4 +1,6 @@
 ﻿// See license at end of the file
+
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using WPFSharp.Globalizer.Converters;
@@ -12,26 +14,30 @@ namespace WPFSharp.Globalizer.Controls
             var itemSourceBinding = new Binding
                 {
                     Source = AvailableLanguages.Instance,
-                    BindsDirectlyToSource = true,
-                    Converter = new LanguageNameListConverter()
+                    BindsDirectlyToSource = true
                 };
             SetBinding(ItemsSourceProperty, itemSourceBinding);
-            
+            ItemTemplate = new DataTemplate();
+            var binding = new Binding { Converter = new LanguageNameConverter() };
+            var textElement = new FrameworkElementFactory(typeof(TextBlock));
+            textElement.SetBinding(TextBlock.TextProperty, binding);
+            ItemTemplate.VisualTree = textElement;
+
             SelectionChanged += LanguageSelectionComboBox_SelectionChanged;
 
             var selectedItemBinding = new Binding("SelectedLanguage")
-                {
-                    Source = AvailableLanguages.Instance,
-                    Converter = new LanguageNameConverter(),
-                    Mode = BindingMode.OneWay
-                };
+            {
+                Source = AvailableLanguages.Instance,
+                Mode = BindingMode.OneWay
+            };
             SetBinding(SelectedItemProperty, selectedItemBinding);
         }
 
         void LanguageSelectionComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var converter = new LanguageNameConverter();
-            GlobalizedApplication.Instance.GlobalizationManager.SwitchLanguage(converter.ConvertBack(e.AddedItems[0].ToString(), typeof(string), null, null).ToString());
+            var lang = e.AddedItems[0] as string;
+            if (!string.IsNullOrWhiteSpace(lang))
+                GlobalizedApplication.Instance.GlobalizationManager.SwitchLanguage(lang);
         }
     }
 }

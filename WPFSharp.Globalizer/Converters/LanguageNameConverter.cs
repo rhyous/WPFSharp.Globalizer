@@ -10,18 +10,19 @@ namespace WPFSharp.Globalizer.Converters
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var lang = value as string;
 
             if (string.IsNullOrWhiteSpace(lang))
                 return null;
-            
-            var ci = new CultureInfo(value.ToString());
-            return ci.DisplayName;
+
+            var ci = new CultureInfo(lang);
+            var locConverter = new LocalizationConverter();
+            return locConverter.Convert(lang, typeof(string), ci.DisplayName, CultureInfo.CurrentCulture);
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var lang = value as string;
 

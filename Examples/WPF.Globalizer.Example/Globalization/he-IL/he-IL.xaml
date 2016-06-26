@@ -18,6 +18,12 @@
     <sys:String x:Key="Menu_Language_Spanish">(es-ES) ספרדית</sys:String>
     <sys:String x:Key="Menu_Language_Hebrew">(he-IL) עברית</sys:String>
 
+
+    <sys:String x:Key="en-US">(en-US) אנגלית</sys:String>
+    <sys:String x:Key="es-ES">(es-ES) ספרדית</sys:String>
+    <sys:String x:Key="he-IL">(he-IL) עברית</sys:String>
+
+
     <sys:String x:Key="LanguageSelectionLabel">_שפה</sys:String>
 
     <!-- Form strings -->
