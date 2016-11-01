@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="WPFSharp Globalizer" Language="1033" Version="1.0.0.1" Manufacturer="Rhyous" UpgradeCode="b8c42b2f-d324-4d8b-86c4-dbbc7d65b270">
+  <Product Id="*" Name="WPFSharp Globalizer" Language="1033" Version="1.0.4.0" Manufacturer="Rhyous" UpgradeCode="b8c42b2f-d324-4d8b-86c4-dbbc7d65b270">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of WPFSharp Globalizer is already installed." />
@@ -19,7 +19,7 @@
           <Directory Id="ProductDirectory" Name="Globalizer">
             <Component Id="Dir_GlobalizerComponent" Guid="315F061A-7431-4381-A8C4-239926680486" DiskId="1" Win64="yes">
               <!-- Runtime, assembly in GAC -->
-              <File Id="Dir_GlobalizerDll" Name="WPFSharp.Globalizer.dll" Source="..\..\bin\$(var.WPFSharp.Globalizer.Configuration)\$(var.WPFSharp.Globalizer.Platform)\WPFSharp.Globalizer.dll" KeyPath="yes"/>
+              <File Id="Dir_GlobalizerDll" Name="WPFSharp.Globalizer.dll" Source="..\..\bin\$(var.WPFSharp.Globalizer.Configuration)\AnyCPU\WPFSharp.Globalizer.dll" KeyPath="yes"/>
               <RegistryValue Id="Reg_GlobalizerDll" Root="HKLM" Key="SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v4.0.21006\AssemblyFoldersEx\WPFSharp.Globalizer" Value="[$Dir_GlobalizerComponent]" Type="string"/>
             </Component>
           </Directory>

@@ -95,7 +95,9 @@
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
-    <None Include="NuGet.config" />
+    <None Include="NuGet.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Package.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -104,6 +106,7 @@
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="lib\net40-client\" />
     <Folder Include="src\" />
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +115,6 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\net40-client\WPFSharp.Globalizer.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\Globalization\en-US\en-US.xaml">
@@ -187,4 +189,9 @@
     <Message Text="SUCCESS: Created package." Condition=" '$(Configuration)|$(Platform)|$(ExitCode)' == 'Debug|AnyCPU|0' " Importance="High" />
     <Message Text="SUCCESS: Published package." Condition=" '$(Configuration)|$(Platform)|$(ExitCode)' == 'Release|AnyCPU|0' " Importance="High" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>SET Project=WPFSharp.Globalizer
+copy /Y "$(SolutionDir)$(OutDir)AnyCPU\%25Project%25.dll" "$(ProjectDir)lib\net40-client\"
+copy /Y "$(SolutionDir)$(OutDir)AnyCPU\%25Project%25.pdb" "$(ProjectDir)lib\net40-client\"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
