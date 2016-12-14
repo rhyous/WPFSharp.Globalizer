@@ -45,6 +45,13 @@
         <TextBox Name="FirstNameTextBox" Grid.Column="2" Grid.Row="3" Text="{Binding FirstNameValue}" />
         <TextBox Name="LastNameTextBox" Grid.Column="2" Grid.Row="4" Text="{Binding LastNameValue}"/>
         <TextBox Name="AgeTextBox" Grid.Column="2" Grid.Row="5" Text="{Binding AgeValue}"/>
-        <Button Content="{globalizer:GlobalizedResource Form_Button_Clear, FallbackValue=Clear}" Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" Name="ButtonClear" Width="75" MinHeight="20" Click="button1_Click" />
+        <Button Grid.Column="2" Grid.Row="6" HorizontalAlignment="Right" Name="ButtonClear" Width="75" MinHeight="20" Click="button1_Click">
+            <StackPanel Orientation="Horizontal">
+                <Viewbox Height="15" VerticalAlignment="Center">
+                    <ContentControl Content="{StaticResource icon_x}"></ContentControl>
+                </Viewbox>
+                <ContentControl Content="{globalizer:GlobalizedResource Form_Button_Clear, FallbackValue=Clear}"></ContentControl>
+            </StackPanel>
+        </Button>
     </Grid>
 </UserControl>
