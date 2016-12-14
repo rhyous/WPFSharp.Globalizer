@@ -18,8 +18,8 @@ namespace WPFSharp.Globalizer
         }
 
         private void GlobalizationManager_ResourceDictionaryChangedEvent(object sender, EventArgs e)
-        {
-            NotifyPropertyChanged("SelectedLanguage");
+        {;
+            OnPropertyChanged(new PropertyChangedEventArgs("SelectedLanguage"));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
 
@@ -59,18 +59,6 @@ namespace WPFSharp.Globalizer
             {
                 MessageBox.Show("Invalid language: " + inString);
                 throw;
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string inPropertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(inPropertyName);
-                handler(this, e);
             }
         }
 
