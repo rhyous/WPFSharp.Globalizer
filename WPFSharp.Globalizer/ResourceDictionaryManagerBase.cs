@@ -48,10 +48,15 @@ namespace WPFSharp.Globalizer
         public void Remove(string inResourceDictionaryName)
         {
             EnhancedResourceDictionary erdToRemove = null;
-            foreach (EnhancedResourceDictionary erd in MergedDictionaries)
+
+            //enumerate through all resource dictionaries
+            foreach (ResourceDictionary rd in MergedDictionaries)
             {
-                if (erd.Name == inResourceDictionaryName)
-                    erdToRemove = erd;
+                //Only operate on globalized enahncedresourcedictionary types
+                var erd = rd as EnhancedResourceDictionary;
+                if(erd != null)
+                    if (erd.Name == inResourceDictionaryName)
+                        erdToRemove = erd;
             }
             MergedDictionaries.Remove(erdToRemove);
         }
