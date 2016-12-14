@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Product Id="*" Name="WPFSharp Globalizer" Language="1033" Version="1.0.4.0" Manufacturer="Rhyous" UpgradeCode="b8c42b2f-d324-4d8b-86c4-dbbc7d65b270">
+  <Product Id="*" Name="WPFSharp Globalizer" Language="1033" Version="1.0.5.0" Manufacturer="Rhyous" UpgradeCode="b8c42b2f-d324-4d8b-86c4-dbbc7d65b270">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x86" />
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of WPFSharp Globalizer is already installed." />
