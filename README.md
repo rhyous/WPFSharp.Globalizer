@@ -149,3 +149,18 @@ To add an additional style, follow these steps:
     </Globalization:StyleResourceDictionary>
     ```
 
+
+## Design Time ##
+There is a DesignTimeResources.xaml file added by the NuGet package into the Properties directory. This is what allows Design Time to work. This is a standard Xaml feature.
+
+```
+<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<ResourceDictionary.MergedDictionaries>
+		<ResourceDictionary Source="../Styles/Default Style.xaml"/>
+		<ResourceDictionary Source="../Globalization/en-US/en-US.xaml"/>
+	</ResourceDictionary.MergedDictionaries>
+	<!-- Resource dictionary entries should be defined here. -->
+</ResourceDictionary>
+```
