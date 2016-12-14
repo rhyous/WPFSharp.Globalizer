@@ -6,13 +6,14 @@ namespace WPFSharp.Globalizer.MVVMExample.ViewModel
     class PersonViewModel : ViewModelBase
     {
         #region Properties
-        public string FirstNameLabel => "Form_FirstName";
+        public string FirstNameLabel { get { return "Form_FirstName"; } }
 
-        public string LastNameLabel => "Form_LastName";
+        public string LastNameLabel { get { return "Form_LastName"; } }
 
-        public string AgeLabel => "Form_Age";
+        public string AgeLabel { get { return "Form_Age"; } }
 
-        private Person Person { get; } = new Person();
+        private Person Person { get { return _Person ?? (_Person = new Person()); } }
+        private Person _Person;
 
         public string FirstNameValue
         {
