@@ -41,7 +41,7 @@
         <!--First Name is commented out of the resources file to show it uses the fallback value-->
         <Label Content="{globalizer:LocalizationBinding FirstNameLabel, FallbackValue='First Name'}" Name="labelFirstName" Grid.Row="3" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
         <Label Content="{globalizer:LocalizationBinding LastNameLabel, FallbackValue='Last Name'}" Name="labelLastName" Grid.Row="4" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
-        <Label Content="{globalizer:LocalizationBinding AgeLabel, FallbackValue=Age, Converter={globconvert:LocalizationConverter}}" Name="labelAge" Grid.Row="5" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
+        <Label Content="{globalizer:LocalizationBinding AgeLabel, FallbackValue=Age}" Name="labelAge" Grid.Row="5" FlowDirection="{DynamicResource FlowDirection_Reverse}" Grid.Column="1" />
         <TextBox Name="FirstNameTextBox" Grid.Column="2" Grid.Row="3" Text="{Binding FirstNameValue}" />
         <TextBox Name="LastNameTextBox" Grid.Column="2" Grid.Row="4" Text="{Binding LastNameValue}"/>
         <TextBox Name="AgeTextBox" Grid.Column="2" Grid.Row="5" Text="{Binding AgeValue}"/>
