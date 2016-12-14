@@ -25,17 +25,17 @@ namespace WPFSharp.Globalizer
         #endregion
 
         #region Properties
-        public virtual String SubDirectory { get; set; }
+        public virtual string SubDirectory { get; set; }
 
-        public virtual String DefaultPath
+        public virtual string DefaultPath
         {
             get { return _DefaultPath ?? (_DefaultPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), SubDirectory)); }
-        } private String _DefaultPath;
+        } private string _DefaultPath;
 
 
         public Collection<ResourceDictionary> MergedDictionaries { get; set; }
 
-        public virtual List<String> FileNames
+        public virtual List<string> FileNames
         {
             get { return _FileNames ?? (_FileNames = new List<string>()); }
             set { _FileNames = value; }

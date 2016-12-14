@@ -39,7 +39,7 @@ namespace WPFSharp.Globalizer
 
             if (!AvailableLanguages.Instance.Contains(inFiveCharLang))
             {
-                throw new CultureNotFoundException(String.Format("The language {0} is not available.", inFiveCharLang));
+                throw new CultureNotFoundException(string.Format("The language {0} is not available.", inFiveCharLang));
             }
 
             // Set the new language
@@ -84,12 +84,12 @@ namespace WPFSharp.Globalizer
             }
         }
 
-        public override EnhancedResourceDictionary LoadFromFile(String inFile)
+        public override EnhancedResourceDictionary LoadFromFile(string inFile)
         {
             return LoadFromFile(inFile, true);
         }
 
-        public EnhancedResourceDictionary LoadFromFile(String inFile, bool inRequireGlobalizationType = true)
+        public EnhancedResourceDictionary LoadFromFile(string inFile, bool inRequireGlobalizationType = true)
         {
             string file = inFile;
             // Determine if the path is absolute or relative

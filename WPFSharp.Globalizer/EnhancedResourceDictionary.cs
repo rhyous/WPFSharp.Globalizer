@@ -10,16 +10,16 @@ namespace WPFSharp.Globalizer
 
         public EnhancedResourceDictionary()
         {
-            Name = String.Empty;
+            Name = string.Empty;
             Id = _Id++;
         }
 
         #region Properties
         public virtual int Id { get; set; }
 
-        public virtual String Name { get; set; }
+        public virtual string Name { get; set; }
 
-        new virtual public String Source { get; set; }
+        new virtual public string Source { get; set; }
 
         #endregion
     }

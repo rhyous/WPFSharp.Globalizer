@@ -13,7 +13,7 @@ namespace WPFSharp.Globalizer
     {
         #region Members
 
-        public static String DefaultStyle = "Default Style.xaml";
+        public static string DefaultStyle = "Default Style.xaml";
 
         #endregion
 
@@ -31,7 +31,7 @@ namespace WPFSharp.Globalizer
         /// <summary>
         /// Dynamically load a Localization ResourceDictionary from a file
         /// </summary>
-        public void SwitchStyle(String inFileName, string inResourceDictionaryName = null)
+        public void SwitchStyle(string inFileName, string inResourceDictionaryName = null)
         {
             string path = inFileName;
             if (!File.Exists(path) && !path.Contains(@":\"))

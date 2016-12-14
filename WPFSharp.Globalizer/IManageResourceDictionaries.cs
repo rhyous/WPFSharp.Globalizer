@@ -21,13 +21,13 @@ namespace WPFSharp.Globalizer
         /// <summary>
         /// The list of resource dictionary .xaml files
         /// </summary>
-        List<String> FileNames { get; set; }
+        List<string> FileNames { get; set; }
 
         /// <summary>
         /// Dynamically load a ResourceDictionary from a file
         /// </summary>
         /// <param name="inFile">The file to read for loading the ResourceDictionary.</param>
-        EnhancedResourceDictionary LoadFromFile(String inFile);
+        EnhancedResourceDictionary LoadFromFile(string inFile);
 
         /// <summary>
         /// Dynamically load a ResourceDictionary from a list of file names

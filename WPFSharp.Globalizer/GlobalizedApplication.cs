@@ -28,10 +28,10 @@ namespace WPFSharp.Globalizer
         }
 
         #region Properties
-        public virtual String Directory
+        public virtual string Directory
         {
             get { return _Directory ?? (_Directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)); }
-        } private String _Directory;
+        } private string _Directory;
 
 
         public virtual EnhancedResourceDictionary FallbackResourceDictionary { get; private set; }
