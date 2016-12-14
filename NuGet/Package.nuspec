@@ -16,17 +16,17 @@
     <licenseUrl>https://github.com/rhyous/WPFSharp.Globalizer/blob/master/Fork%20and%20Contribute%20License.txt</licenseUrl>
     <copyright>Copyright Jared Barneck (Rhyous) 2015</copyright>
     <references></references>
-    <tags>WPF XAML Localization Globalization</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="PresentationCore" />
+      <frameworkAssembly assemblyName="PresentationFramework" />
+      <frameworkAssembly assemblyName="System.Xaml" />
+      <frameworkAssembly assemblyName="WindowsBase" />
+    </frameworkAssemblies>
+    <tags>WPF XAML Localization Globalization</tags>    
   </metadata>
   <files>
     <file src="content\" target="content" />
     <file src="lib\" target="lib"  />
     <file src="tools\" target="tools" />
   </files>
-  <frameworkAssemblies>
-    <frameworkAssembly assemblyName="PresentationCore" />
-    <frameworkAssembly assemblyName="PresentationFramework" />
-    <frameworkAssembly assemblyName="System.Xaml" />
-    <frameworkAssembly assemblyName="WindowsBase" />
-  </frameworkAssemblies>
 </package>
