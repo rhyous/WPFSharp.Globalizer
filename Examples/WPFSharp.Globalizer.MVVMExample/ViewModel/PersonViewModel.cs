@@ -5,6 +5,12 @@ namespace WPFSharp.Globalizer.MVVMExample.ViewModel
 {
     class PersonViewModel : ViewModelBase
     {
+
+        public PersonViewModel()
+        {
+            GlobalizedApplication.Instance.GlobalizationManager.ResourceDictionaryChangedEvent += (source, args) => { NotifyPropertyChangedAll(this); };
+        }
+
         #region Properties
         public string FirstNameLabel { get { return "Form_FirstName"; } }
 
