@@ -18,7 +18,7 @@ namespace WPFSharp.Globalizer
         }
 
         private void GlobalizationManager_ResourceDictionaryChangedEvent(object sender, EventArgs e)
-        {;
+        {
             OnPropertyChanged(new PropertyChangedEventArgs("SelectedLanguage"));
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
         }
