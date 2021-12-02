@@ -10,11 +10,11 @@ dotnet_csproj:
   file_version: '{version}'
   informational_version: '{version}'
 before_build:
-- pwsh: nuget restore src/Rhyous.WPFSharp.Globalizer.sln
+- pwsh: nuget restore src/WPFSharp.Globalizer.sln
 configuration:
   Release
 build:
-  project: src/Rhyous.WPFSharp.Globalizer.sln
+  project: src/WPFSharp.Globalizer.sln
   verbosity: minimal
 test:
   categories:
