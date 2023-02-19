@@ -25,6 +25,7 @@ namespace WPFSharp.Globalizer
         protected override void OnStartup(StartupEventArgs e)
         {
             Init();
+            base.OnStartup(e);
         }
 
         #region Properties
